@@ -12,7 +12,7 @@ The plugin is a lot about config so we recommand using [grunt-minimal-config](ht
 
 ### Config example
 
-```
+```javascript
 deployer: {
 	options: {
 		// Files we need to process

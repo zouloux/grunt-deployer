@@ -1,6 +1,6 @@
 {
   "name": "grunt-deployer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Grunt plugin deploying files with versions and specific parameters.",
   "scripts": {
     "test": "grunt test --stack"
