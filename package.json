@@ -1,13 +1,13 @@
 {
   "name": "grunt-deployer",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Grunt plugin deploying files with versions and specific parameters.",
   "scripts": {
     "test": "grunt test --stack"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/la-haute-societe/grunt-deployer.git"
+    "url": "git@github.com:zouloux/grunt-deployer.git"
   },
   "keywords": [
     "grunt",
@@ -22,9 +22,9 @@
   "author": "Alexis Bouhet",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/la-haute-societe/grunt-deployer/issues"
+    "url": "git@github.com:zouloux/grunt-deployer/issues"
   },
-  "homepage": "https://github.com/la-haute-societe/grunt-deployer",
+  "homepage": "git@github.com:zouloux/grunt-deployer",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",

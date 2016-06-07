@@ -1,9 +1,6 @@
 module.exports = function (pGrunt)
 {
-	/**
-	 * TODO : doc
-	 */
-	pGrunt.registerMultiTask('deployer', '', function ()
+	pGrunt.registerMultiTask('deployer', 'Deploy files', function ()
 	{
 		// Get options
 		var options = this.options({
