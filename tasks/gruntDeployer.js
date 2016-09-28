@@ -64,6 +64,7 @@ module.exports = function (pGrunt)
 			{
 				if (process.argv[i] == '--minor') updateIndex = 1;
 				if (process.argv[i] == '--major') updateIndex = 0;
+				if (process.argv[i] == '--no-increment') updateIndex = Math.POSITIVE_INFINITY;
 			}
 
 			// Load version file
