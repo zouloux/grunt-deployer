@@ -64,44 +64,54 @@ module.exports = function (pGrunt)
 			{
 				if (process.argv[i] == '--minor') updateIndex = 1;
 				if (process.argv[i] == '--major') updateIndex = 0;
+				if (process.argv[i] == '--no-increment') updateIndex = -1;
 			}
 
 			// Load version file
 			var versionFileContent = pGrunt.file.read(options.versionFile);
 
-			// Convert to semver
-			var splittedSemver = versionFileContent.split('.');
-
-			// Check semver
-			if (splittedSemver.length != 3)
+			// If we have to increment version
+			if (updateIndex >= 0)
 			{
-				pGrunt.fail.fatal('Version file contains an invalid sem-ver formated version. Please use sem-ver ("major.minor.patch" Ex : "1.0.32")');
-			}
+				// Convert to semver
+				var splittedSemver = versionFileContent.split('.');
 
-			// Browse our semver
-			for (var semverIndex in splittedSemver)
-			{
-				// Update selected semver index
-				if (semverIndex == updateIndex)
+				// Check semver
+				if (splittedSemver.length != 3)
 				{
-					splittedSemver[semverIndex] = parseFloat(splittedSemver[semverIndex]) + 1;
+					pGrunt.fail.fatal('Version file contains an invalid sem-ver formated version. Please use sem-ver ("major.minor.patch" Ex : "1.0.32")');
 				}
 
-				// Reset after
-				else if (semverIndex > updateIndex)
+				// Browse our semver
+				for (var semverIndex in splittedSemver)
 				{
-					splittedSemver[semverIndex] = 0;
+					// Update selected semver index
+					if (semverIndex == updateIndex)
+					{
+						splittedSemver[semverIndex] = parseFloat(splittedSemver[semverIndex]) + 1;
+					}
+
+					// Reset after
+					else if (semverIndex > updateIndex)
+					{
+						splittedSemver[semverIndex] = 0;
+					}
 				}
+
+				// Rebuild new version
+				versionFileContent = splittedSemver.join('.');
+
+				// Save file
+				pGrunt.file.write(options.versionFile, versionFileContent);
+
+				// Notify
+				pGrunt.log.ok('New version : ', versionFileContent);
 			}
-
-			// Rebuild new version
-			versionFileContent = splittedSemver.join('.');
-
-			// Save file
-			pGrunt.file.write(options.versionFile, versionFileContent);
-
-			// Notify
-			pGrunt.log.ok('New version : ', versionFileContent);
+			else
+			{
+				// Notify
+				pGrunt.log.ok('Version not incremented : ', versionFileContent);
+			}
 
 			// Add version to the properties bag
 			properties.version = versionFileContent;

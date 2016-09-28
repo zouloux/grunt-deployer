@@ -110,5 +110,10 @@ grunt deployer:preprod --minor
 
 Deploy for production env, incrementing major (X.0.0)
 ```
-grunt deployer:preprod --major
+grunt deployer:prod --major
+```
+
+Deploy for production, without incrementing at all
+```
+grunt deployer:preprod --no-increment
 ```
