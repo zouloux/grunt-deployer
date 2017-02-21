@@ -31,10 +31,11 @@ deployer: {
 		],
 
 		// Auto-incremented version file (this file have to be semver formated, ex : "0.1.0")
-		// If not provided, will not increment
-		// By default, patch number is incremented
+		// By default, version is not modified.
+		// Pass --patch in your CLI to increment patch number
 		// Pass --minor in your CLI to increment minor number
 		// Pass --major in your CLI to increment major number
+		// Semver format : major.minor.patch
 		versionFile: '{= path.deploymentFiles }version',
 
 		// Delimiters (use regex notation)
@@ -49,24 +50,36 @@ deployer: {
 		}
 	},
 
+	// This task is only here to bump version but does deploy anything
+	// To just increment and deploy nothing :
+	// grunt deployer:increment --patch
+	increment: { },
+
+	// Different environment examples with different properties :
+
+	// grunt deployer:local
 	local: {
 		properties: {
 			baseURL : '/local/base/path/'
 		}
 	},
-	preprod: {
+
+	// grunt deployer:staging
+	staging: {
 		properties: {
-			baseURL : '/preprod/base/path/'
+			baseURL : '/staging/base/path/'
 
 			// Override common property
-			specName : 'preprod-specTestName'
+			specName : 'staging-specTestName'
 		}
 	},
-	prod: {
+
+	// grunt deployer:production
+	production: {
 		properties: {
 			baseURL : '/'
 
-			bddLogin: 'prod',
+			bddLogin: 'production',
 			bddLogin: '!p@$$W0rD!'
 		}
 	}
@@ -98,9 +111,14 @@ RewriteBase /local/base/path/
 
 ### Usage
 
-Deploy for local env, incrementing patch (0.0.X) :
+Deploy for local env, no version increment :
 ```
 grunt deployer:local
+```
+
+Deploy for local env, incrementing patch (0.0.X) :
+```
+grunt deployer:local --patch
 ```
 
 Deploy for pre-production env, incrementing minor (0.X.0)
@@ -113,7 +131,12 @@ Deploy for production env, incrementing major (X.0.0)
 grunt deployer:prod --major
 ```
 
-Deploy for production, without incrementing at all
+Deploy for production, without incrementing
 ```
-grunt deployer:preprod --no-increment
+grunt deployer:preprod
+```
+
+Deploy nothing but just bump version number
+```
+grunt deployer:increment --minor
 ```

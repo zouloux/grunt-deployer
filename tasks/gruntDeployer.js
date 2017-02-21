@@ -57,14 +57,14 @@ module.exports = function (pGrunt)
 		if (options.versionFile != false)
 		{
 			// Update will tell us if we have to increment minor, major or path
-			var updateIndex = 2;
+			var updateIndex = -1;
 
 			// Get process parameters
 			for (i in process.argv)
 			{
-				if (process.argv[i] == '--minor') updateIndex = 1;
 				if (process.argv[i] == '--major') updateIndex = 0;
-				if (process.argv[i] == '--no-increment') updateIndex = -1;
+				if (process.argv[i] == '--minor') updateIndex = 1;
+				if (process.argv[i] == '--patch') updateIndex = 2;
 			}
 
 			// Load version file
@@ -116,6 +116,9 @@ module.exports = function (pGrunt)
 			// Add version to the properties bag
 			properties.version = versionFileContent;
 		}
+
+		// If this isn't just a version bump
+		if (pGrunt.task.current.target.toLowerCase() == 'increment') return;
 
 		// Browse files
 		var currentFile;
